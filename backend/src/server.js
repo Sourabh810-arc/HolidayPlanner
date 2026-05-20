@@ -24,7 +24,7 @@ const app = express();
 connectDB();
 
 // Middleware
-const corsEnv = process.env.CORS_ORIGIN || 'http://localhost:5173';
+const corsEnv = process.env.CORS_ORIGIN ;
 const corsConfig = corsEnv.trim() === '*' 
   ? { origin: '*', credentials: false }
   : {
