@@ -25,19 +25,10 @@ connectDB();
 
 // Middleware
 app.use(helmet());
-const corsEnv = process.env.CORS_ORIGIN || 'http://localhost:5175';
-const corsOrigins = corsEnv.split(',').map(origin => origin.trim());
+// Allow any website by reflecting the request origin (supports credentials)
+// In production consider restricting this to specific origins.
 app.use(cors({
-  origin: function (origin, callback) {
-    // Allow requests with no origin (mobile apps, curl, server-to-server)
-    if (!origin) return callback(null, true);
-    // Allow wildcard
-    if (corsOrigins.includes('*')) return callback(null, true);
-    // Allow specific origins
-    if (corsOrigins.indexOf(origin) !== -1) return callback(null, true);
-    // Otherwise block
-    return callback(new Error('CORS policy: Origin not allowed'), false);
-  },
+  origin: true,
   credentials: true,
 }));
 app.use(express.json({ limit: '10mb' }));
