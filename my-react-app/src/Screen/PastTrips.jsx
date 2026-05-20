@@ -11,7 +11,7 @@ export function PastTrips({ token, onNewTrip, onLogout }) {
       setLoading(true);
       setError("");
       try {
-        const response = await fetch("http://localhost:5000/api/bookings/user/my-bookings", {
+        const response = await fetch("https://holiday-planner-git-main-sourabhprojects.vercel.app/api/bookings/user/my-bookings", {
           headers: {
             Authorization: token ? `Bearer ${token}` : "",
           },

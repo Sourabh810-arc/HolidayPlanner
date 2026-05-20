@@ -17,7 +17,7 @@ export function LoginScreen({ onAuthenticated }) {
 
     setStatus("loading");
     try {
-      const response = await fetch("http://localhost:5000/api/auth/request-otp", {
+      const response = await fetch("https://holiday-planner-git-main-sourabhprojects.vercel.app/api/auth/request-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: email.trim().toLowerCase() }),
@@ -41,7 +41,7 @@ export function LoginScreen({ onAuthenticated }) {
 
     setStatus("verifying");
     try {
-      const response = await fetch("http://localhost:5000/api/auth/verify-otp", {
+      const response = await fetch("https://holiday-planner-git-main-sourabhprojects.vercel.app/api/auth/verify-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: email.trim().toLowerCase(), otp: otp.trim() }),

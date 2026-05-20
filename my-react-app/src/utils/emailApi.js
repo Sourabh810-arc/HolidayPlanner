@@ -1,5 +1,5 @@
 export async function sendBookingConfirmationEmail({ email, subject, message }) {
-  const response = await fetch('http://localhost:5000/api/email/send', {
+  const response = await fetch('https://holiday-planner-git-main-sourabhprojects.vercel.app/api/email/send', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
