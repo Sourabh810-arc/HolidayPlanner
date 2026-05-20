@@ -24,15 +24,22 @@ const app = express();
 connectDB();
 
 // Middleware
-const corsEnv = process.env.CORS_ORIGIN ;
-const corsConfig = corsEnv.trim() === '*' 
-  ? { origin: '*', credentials: false }
-  : {
-      origin: corsEnv.split(',').map(o => o.trim()),
-      credentials: true
-    };
-app.use(cors(corsConfig));
 app.use(helmet());
+const corsEnv = process.env.CORS_ORIGIN || 'http://localhost:5175';
+const corsOrigins = corsEnv.split(',').map(origin => origin.trim());
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow requests with no origin (mobile apps, curl, server-to-server)
+    if (!origin) return callback(null, true);
+    // Allow wildcard
+    if (corsOrigins.includes('*')) return callback(null, true);
+    // Allow specific origins
+    if (corsOrigins.indexOf(origin) !== -1) return callback(null, true);
+    // Otherwise block
+    return callback(new Error('CORS policy: Origin not allowed'), false);
+  },
+  credentials: true,
+}));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
 
