@@ -25,9 +25,19 @@ connectDB();
 
 // Middleware
 app.use(helmet());
-const corsOrigins = (process.env.CORS_ORIGIN || 'http://localhost:5173').split(',').map(origin => origin.trim());
+const corsEnv = process.env.CORS_ORIGIN || 'http://localhost:5173';
+const corsOrigins = corsEnv.split(',').map(origin => origin.trim());
 app.use(cors({
-  origin: corsOrigins,
+  origin: function (origin, callback) {
+    // Allow requests with no origin (mobile apps, curl, server-to-server)
+    if (!origin) return callback(null, true);
+    // Allow wildcard
+    if (corsOrigins.includes('*')) return callback(null, true);
+    // Allow specific origins
+    if (corsOrigins.indexOf(origin) !== -1) return callback(null, true);
+    // Otherwise block
+    return callback(new Error('CORS policy: Origin not allowed'), false);
+  },
   credentials: true,
 }));
 app.use(express.json({ limit: '10mb' }));

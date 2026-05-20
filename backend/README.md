@@ -212,6 +212,11 @@ JWT_EXPIRE=7d                                      # Token expiration
 CORS_ORIGIN=http://localhost:5173                 # Frontend URL for CORS
 ```
 
+Notes:
+- `CORS_ORIGIN` can contain multiple origins separated by commas, for example:
+  `CORS_ORIGIN=https://capable-toffee-60eb54.netlify.app,https://your-other-domain.com`
+- Use `CORS_ORIGIN=*` only for testing; it's not recommended for production.
+
 ---
 
 ## Database Schema
