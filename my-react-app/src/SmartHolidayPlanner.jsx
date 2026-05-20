@@ -43,7 +43,7 @@ export default function SmartHolidayPlanner() {
       }
 
       try {
-        const response = await fetch('https://holiday-planner-git-main-sourabhprojects.vercel.app/api/auth/verify', {
+        const response = await fetch('https://holiday-planner-gray.vercel.app/api/auth/verify', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -65,9 +65,9 @@ export default function SmartHolidayPlanner() {
     const fetchData = async () => {
       try {
         const [hotelsRes, activitiesRes, placesRes] = await Promise.all([
-          fetch('https://holiday-planner-git-main-sourabhprojects.vercel.app/api/hotels'),
-          fetch('https://holiday-planner-git-main-sourabhprojects.vercel.app/api/activities'),
-          fetch('https://holiday-planner-git-main-sourabhprojects.vercel.app/api/tourist-places')
+          fetch('https://holiday-planner-gray.vercel.app/api/hotels'),
+          fetch('https://holiday-planner-gray.vercel.app/api/activities'),
+          fetch('https://holiday-planner-gray.vercel.app/api/tourist-places')
         ]);
         const hotelsData = await hotelsRes.json();
         const activitiesData = await activitiesRes.json();
@@ -302,7 +302,7 @@ export default function SmartHolidayPlanner() {
                     touristPlaces: planResult.touristPlaces,
                     onConfirm: async (b) => {
                       try {
-                        const response = await fetch('https://holiday-planner-git-main-sourabhprojects.vercel.app/api/bookings', {
+                        const response = await fetch('https://holiday-planner-gray.vercel.app/api/bookings', {
                           method: 'POST',
                           headers: {
                             'Content-Type': 'application/json',
