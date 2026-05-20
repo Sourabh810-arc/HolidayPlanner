@@ -35,8 +35,9 @@ app.use(cors({
     if (corsOrigins.includes('*')) return callback(null, true);
     // Allow specific origins
     if (corsOrigins.indexOf(origin) !== -1) return callback(null, true);
-    // Otherwise block
-    return callback(new Error('CORS policy: Origin not allowed'), false);
+    // Otherwise block without throwing an error (prevents 500 responses)
+    console.warn('CORS blocked origin:', origin);
+    return callback(null, false);
   },
   credentials: true,
 }));
